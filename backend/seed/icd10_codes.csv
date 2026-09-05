@@ -1,0 +1,101 @@
+code,description
+E08.00,Diabetes mellitus due to underlying condition with hyperosmolarity without nonketotic hyperglycemic-hyperosmolar coma (NKHHC)
+E08.01,Diabetes mellitus due to underlying condition with hyperosmolarity with coma
+E08.10,Diabetes mellitus due to underlying condition with ketoacidosis without coma
+E08.11,Diabetes mellitus due to underlying condition with ketoacidosis with coma
+E08.21,Diabetes mellitus due to underlying condition with diabetic nephropathy
+E08.22,Diabetes mellitus due to underlying condition with diabetic chronic kidney disease
+E08.29,Diabetes mellitus due to underlying condition with other diabetic kidney complication
+E08.311,Diabetes mellitus due to underlying condition with unspecified diabetic retinopathy with macular edema
+E08.319,Diabetes mellitus due to underlying condition with unspecified diabetic retinopathy without macular edema
+E08.3211,"Diabetes mellitus due to underlying condition with mild nonproliferative diabetic retinopathy with macular edema, right eye"
+I10,Essential (primary) hypertension
+I11.0,Hypertensive heart disease with heart failure
+I11.9,Hypertensive heart disease without heart failure
+I12.0,Hypertensive chronic kidney disease with stage 5 chronic kidney disease or end stage renal disease
+I12.9,"Hypertensive chronic kidney disease with stage 1 through stage 4 chronic kidney disease, or unspecified chronic kidney disease"
+I13.0,"Hypertensive heart and chronic kidney disease with heart failure and stage 1 through stage 4 chronic kidney disease, or unspecified chronic kidney disease"
+I13.10,"Hypertensive heart and chronic kidney disease without heart failure, with stage 1 through stage 4 chronic kidney disease, or unspecified chronic kidney disease"
+I13.11,"Hypertensive heart and chronic kidney disease without heart failure, with stage 5 chronic kidney disease, or end stage renal disease"
+I13.2,"Hypertensive heart and chronic kidney disease with heart failure and with stage 5 chronic kidney disease, or end stage renal disease"
+I15.0,Renovascular hypertension
+J00,Acute nasopharyngitis [common cold]
+J01.00,"Acute maxillary sinusitis, unspecified"
+J01.01,Acute recurrent maxillary sinusitis
+J01.10,"Acute frontal sinusitis, unspecified"
+J01.11,Acute recurrent frontal sinusitis
+J01.20,"Acute ethmoidal sinusitis, unspecified"
+J01.21,Acute recurrent ethmoidal sinusitis
+J01.30,"Acute sphenoidal sinusitis, unspecified"
+J01.31,Acute recurrent sphenoidal sinusitis
+J01.40,"Acute pansinusitis, unspecified"
+J69.0,Pneumonitis due to inhalation of food and vomit
+J69.1,Pneumonitis due to inhalation of oils and essences
+J69.8,Pneumonitis due to inhalation of other solids and liquids
+J09.X1,Influenza due to identified novel influenza A virus with pneumonia
+J09.X2,Influenza due to identified novel influenza A virus with other respiratory manifestations
+J09.X3,Influenza due to identified novel influenza A virus with gastrointestinal manifestations
+J09.X9,Influenza due to identified novel influenza A virus with other manifestations
+J10.00,Influenza due to other identified influenza virus with unspecified type of pneumonia
+J10.01,Influenza due to other identified influenza virus with the same other identified influenza virus pneumonia
+J10.08,Influenza due to other identified influenza virus with other specified pneumonia
+K44.0,"Diaphragmatic hernia with obstruction, without gangrene"
+K44.1,Diaphragmatic hernia with gangrene
+K44.9,Diaphragmatic hernia without obstruction or gangrene
+K20.0,Eosinophilic esophagitis
+K20.80,Other esophagitis without bleeding
+K20.81,Other esophagitis with bleeding
+K20.90,"Esophagitis, unspecified without bleeding"
+K20.91,"Esophagitis, unspecified with bleeding"
+K21.00,"Gastro-esophageal reflux disease with esophagitis, without bleeding"
+K21.01,"Gastro-esophageal reflux disease with esophagitis, with bleeding"
+M50.00,"Cervical disc disorder with myelopathy, unspecified cervical region"
+M50.01,"Cervical disc disorder with myelopathy, high cervical region"
+M50.020,"Cervical disc disorder with myelopathy, mid-cervical region, unspecified level"
+M50.021,Cervical disc disorder at C4-C5 level with myelopathy
+M50.022,Cervical disc disorder at C5-C6 level with myelopathy
+M50.023,Cervical disc disorder at C6-C7 level with myelopathy
+M50.03,"Cervical disc disorder with myelopathy, cervicothoracic region"
+M50.10,"Cervical disc disorder with radiculopathy, unspecified cervical region"
+M50.11,"Cervical disc disorder with radiculopathy, high cervical region"
+M50.120,"Mid-cervical disc disorder, unspecified level"
+N30.00,Acute cystitis without hematuria
+N30.01,Acute cystitis with hematuria
+N30.10,Interstitial cystitis (chronic) without hematuria
+N30.11,Interstitial cystitis (chronic) with hematuria
+N30.20,Other chronic cystitis without hematuria
+N30.21,Other chronic cystitis with hematuria
+N30.30,Trigonitis without hematuria
+N30.31,Trigonitis with hematuria
+N30.40,Irradiation cystitis without hematuria
+N30.41,Irradiation cystitis with hematuria
+L20.0,Besnier's prurigo
+L20.81,Atopic neurodermatitis
+L20.82,Flexural eczema
+L20.83,Infantile (acute) (chronic) eczema
+L20.84,Intrinsic (allergic) eczema
+L20.89,Other atopic dermatitis
+L20.9,"Atopic dermatitis, unspecified"
+L21.0,Seborrhea capitis
+L21.1,Seborrheic infantile dermatitis
+L21.8,Other seborrheic dermatitis
+F40.00,"Agoraphobia, unspecified"
+F40.01,Agoraphobia with panic disorder
+F40.02,Agoraphobia without panic disorder
+F40.10,"Social phobia, unspecified"
+F40.11,"Social phobia, generalized"
+F40.210,Arachnophobia
+F40.218,Other animal type phobia
+F40.220,Fear of thunderstorms
+F40.228,Other natural environment type phobia
+F40.230,Fear of blood
+R50.2,Drug induced fever
+R50.81,Fever presenting with conditions classified elsewhere
+R50.82,Postprocedural fever
+R50.83,Postvaccination fever
+R50.84,Febrile nonhemolytic transfusion reaction
+R50.9,"Fever, unspecified"
+R51.0,"Headache with orthostatic component, not elsewhere classified"
+R51.9,"Headache, unspecified"
+R52,"Pain, unspecified"
+R53.0,Neoplastic (malignant) related fatigue
