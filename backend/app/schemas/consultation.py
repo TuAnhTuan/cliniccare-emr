@@ -19,8 +19,6 @@ class ConsultationCreate(BaseModel):
     patient_gender: Literal["male", "female", "other"] | None = None
     note: str = Field(..., min_length=1, max_length=5000)
     diagnosis_codes: list[str] = Field(..., min_length=1)
-    # TODO: JWT login is added
-    created_by: int
 
     @field_validator("patient_dob")
     @classmethod

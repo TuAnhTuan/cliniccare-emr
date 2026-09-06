@@ -10,7 +10,7 @@ from .base import BaseService
 
 
 class ConsultationService(BaseService):
-    def create(self, data: ConsultationCreate) -> Consultation:
+    def create(self, data: ConsultationCreate, created_by: int) -> Consultation:
         diagnoses = (
             self.db.query(Diagnosis)
             .filter(Diagnosis.icd10_code.in_(data.diagnosis_codes))
@@ -35,7 +35,7 @@ class ConsultationService(BaseService):
         consultation = Consultation(
             patient_id=patient.id,
             note=data.note,
-            created_by=data.created_by,
+            created_by=created_by,
         )
         consultation.diagnoses = diagnoses
         self.db.add(consultation)
@@ -46,7 +46,7 @@ class ConsultationService(BaseService):
                 table_name="consultations",
                 record_id=consultation.id,
                 action="CREATE",
-                performed_by=data.created_by,
+                performed_by=created_by,
                 new_data=json.dumps(
                     {
                         "patient_id": patient.id,
