@@ -10,7 +10,13 @@ router = APIRouter(prefix="/diagnosis", tags=["diagnosis"])
 
 @router.get("", response_model=list[DiagnosisRes])
 def search_diagnoses(
-    search: str = Query("", description="Search term matched against ICD-10 code or description"),
+    search: str = Query(
+        "",
+        description=(
+            "Search term matched against the ICD-10 code prefix or the description. "
+            "At least 3 characters are required for a non-empty term."
+        ),
+    ),
     limit: int = Query(20, ge=1, le=100),
     db: Session = Depends(get_db),
 ):
