@@ -1,6 +1,7 @@
 import json
+from typing import Any
 
-from sqlalchemy.orm import selectinload, joinedload
+from sqlalchemy.orm import joinedload, selectinload
 
 from ..exceptions import BadRequestError
 from ..models import AuditLog, Consultation, Diagnosis, Patient
@@ -60,13 +61,19 @@ class ConsultationService(BaseService):
         self.db.refresh(consultation)
         return consultation
 
-    def get_all(self) -> list[type[Consultation]]:
-        return (
-            self.db.query(Consultation)
-            .options(
-                joinedload(Consultation.patient),
-                selectinload(Consultation.diagnoses)
-            )
-            .order_by(Consultation.created_at.desc())
-            .all()
+    def get_all(
+        self,
+        patient: str | None = None,
+        diagnosis_code: str | None = None,
+    ) -> list[type[Consultation]]:
+        query = self.db.query(Consultation).options(
+            joinedload(Consultation.patient),
+            selectinload(Consultation.diagnoses),
         )
+        if patient:
+            query = query.join(Consultation.patient).filter(Patient.name.ilike(f"%{patient}%"))
+        if diagnosis_code:
+            query = query.join(Consultation.diagnoses).filter(Diagnosis.icd10_code == diagnosis_code)
+        return (query.order_by(Consultation.created_at.desc())
+                .distinct()
+                .all())

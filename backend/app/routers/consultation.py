@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, Depends, Query, status
 from sqlalchemy.orm import Session
 
 from ..database import get_db
@@ -14,5 +14,9 @@ def create_consultation(payload: ConsultationCreate, db: Session = Depends(get_d
 
 
 @router.get("", response_model=list[ConsultationRes])
-def get_list_consultations(db: Session = Depends(get_db)):
-    return ConsultationService(db).get_all()
+def get_list_consultations(
+    patient: str | None = Query(None, description="Filter by patient name"),
+    diagnosis_code: str | None = Query(None, description="Filter by ICD-10 code"),
+    db: Session = Depends(get_db),
+):
+    return ConsultationService(db).get_all(patient=patient, diagnosis_code=diagnosis_code)
