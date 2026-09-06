@@ -16,6 +16,4 @@ export interface ConsultationCreatePayload {
   patient_gender?: 'male' | 'female' | 'other' | null
   note: string
   diagnosis_codes: string[]
-  // TODO: derive this from the authenticated practitioner once JWT login is added
-  created_by: number
 }

@@ -48,8 +48,6 @@ async function submit() {
       patient_gender: patientGender.value || null,
       note: note.value.trim(),
       diagnosis_codes: selectedDiagnoses.value.map((d) => d.icd10_code),
-      // TODO: derive this from the authenticated practitioner once JWT login is added
-      created_by: 1,
     }
     await post('/consultation', payload)
     await router.push('/consultations')
