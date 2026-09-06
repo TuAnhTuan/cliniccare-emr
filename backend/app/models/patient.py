@@ -11,6 +11,7 @@ class Patient(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(255), nullable=False)
     dob = Column(Date, nullable=True)
+    gender = Column(String(10), nullable=True)
     created_at = Column(DateTime, nullable=False, server_default=func.now())
 
     consultations = relationship("Consultation", back_populates="patient")

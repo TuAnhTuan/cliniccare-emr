@@ -28,7 +28,7 @@ class ConsultationService(BaseService):
             .first()
         )
         if patient is None:
-            patient = Patient(name=data.patient_name)
+            patient = Patient(name=data.patient_name, dob=data.patient_dob, gender=data.patient_gender)
             self.db.add(patient)
             self.db.flush()
 
