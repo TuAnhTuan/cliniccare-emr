@@ -57,7 +57,13 @@ CREATE TABLE IF NOT EXISTS audit_logs (
 );
 CREATE INDEX IF NOT EXISTS idx_audit_logs_record ON audit_logs(table_name, record_id);
 
--- Sample practitioner for local testing / manual audit checks
-INSERT INTO practitioners (full_name, email, role) VALUES ('Dr. Tuan Le', 'tuanle@cliniccare.com', 'doctor')
+-- Sample practitioner for local testing / manual audit checks.
+-- Login: tuanle@cliniccare.com / password123
+INSERT INTO practitioners (full_name, email, role, hashed_password) VALUES (
+    'Dr. Tuan Le',
+    'tuanle@cliniccare.com',
+    'doctor',
+    '$2b$12$7sBDbbUS.wD91m/gkd4ut.2tTPY9keBfgOgTipD/ONnqwEo9Y6fui'
+)
 ON CONFLICT (email) DO NOTHING;
 

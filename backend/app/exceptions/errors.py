@@ -20,3 +20,8 @@ class NotFoundError(AppError):
 class BadRequestError(AppError):
     status_code = status.HTTP_400_BAD_REQUEST
     detail = "Bad request"
+
+
+class UnauthorizedError(AppError):
+    status_code = status.HTTP_401_UNAUTHORIZED
+    detail = "Not authenticated"
