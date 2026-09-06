@@ -1,5 +1,7 @@
 import json
 
+from sqlalchemy.orm import selectinload, joinedload
+
 from ..exceptions import BadRequestError
 from ..models import AuditLog, Consultation, Diagnosis, Patient
 from ..schemas import ConsultationCreate
@@ -57,3 +59,14 @@ class ConsultationService(BaseService):
         self.db.commit()
         self.db.refresh(consultation)
         return consultation
+
+    def get_all(self) -> list[type[Consultation]]:
+        return (
+            self.db.query(Consultation)
+            .options(
+                joinedload(Consultation.patient),
+                selectinload(Consultation.diagnoses)
+            )
+            .order_by(Consultation.created_at.desc())
+            .all()
+        )
