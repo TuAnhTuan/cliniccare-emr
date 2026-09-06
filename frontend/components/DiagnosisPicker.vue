@@ -8,12 +8,14 @@ const searchTerm = ref('')
 const results = ref<Diagnosis[]>([])
 const searching = ref(false)
 
+const MIN_SEARCH_LENGTH = 3
+
 let debounceTimer: ReturnType<typeof setTimeout> | undefined
 
 watch(searchTerm, (term) => {
   clearTimeout(debounceTimer)
-  if (!term.trim()) {
-    results.value = []
+  results.value = []
+  if (term.trim().length < MIN_SEARCH_LENGTH) {
     return
   }
   debounceTimer = setTimeout(async () => {
@@ -41,6 +43,27 @@ function addDiagnosis(diagnosis: Diagnosis) {
 function removeDiagnosis(diagnosis: Diagnosis) {
   modelValue.value = modelValue.value.filter((d) => d.id !== diagnosis.id)
 }
+
+function highlightSegments(text: string, term: string) {
+  const cleanTerm = term.trim()
+  if (!cleanTerm) return [{ text, match: false }]
+
+  const segments: { text: string; match: boolean }[] = []
+  const lowerText = text.toLowerCase()
+  const lowerTerm = cleanTerm.toLowerCase()
+
+  let start = 0
+  let index = lowerText.indexOf(lowerTerm, start)
+  while (index !== -1) {
+    if (index > start) segments.push({ text: text.slice(start, index), match: false })
+    segments.push({ text: text.slice(index, index + cleanTerm.length), match: true })
+    start = index + cleanTerm.length
+    index = lowerText.indexOf(lowerTerm, start)
+  }
+  if (start < text.length) segments.push({ text: text.slice(start), match: false })
+
+  return segments
+}
 </script>
 
 <template>
@@ -59,18 +82,27 @@ function removeDiagnosis(diagnosis: Diagnosis) {
       placeholder="Search ICD-10 code or description…"
     />
 
-    <ul v-if="searchTerm && (results.length || searching)" class="results">
-      <li v-if="searching" class="results__hint">Searching…</li>
-      <li
-        v-for="diagnosis in results"
-        :key="diagnosis.id"
-        class="results__item"
-        :class="{ 'results__item--selected': isSelected(diagnosis) }"
-        @mousedown.prevent="addDiagnosis(diagnosis)"
-      >
-        <strong>{{ diagnosis.icd10_code }}</strong> — {{ diagnosis.description }}
+    <ul v-if="searchTerm" class="results">
+      <li v-if="searchTerm.trim().length < MIN_SEARCH_LENGTH" class="results__hint">
+        Type at least {{ MIN_SEARCH_LENGTH }} characters to search.
       </li>
-      <li v-if="!searching && !results.length" class="results__hint">No matching codes.</li>
+      <li v-else-if="searching" class="results__hint">Searching…</li>
+      <template v-else>
+        <li
+          v-for="diagnosis in results"
+          :key="diagnosis.id"
+          class="results__item"
+          :class="{ 'results__item--selected': isSelected(diagnosis) }"
+          @mousedown.prevent="addDiagnosis(diagnosis)"
+        >
+          <strong>{{ diagnosis.icd10_code }}</strong> —
+          <template v-for="(segment, i) in highlightSegments(diagnosis.description, searchTerm)" :key="i">
+            <mark v-if="segment.match" class="match">{{ segment.text }}</mark>
+            <template v-else>{{ segment.text }}</template>
+          </template>
+        </li>
+        <li v-if="!results.length" class="results__hint">No matching codes.</li>
+      </template>
     </ul>
   </div>
 </template>
@@ -160,5 +192,12 @@ function removeDiagnosis(diagnosis: Diagnosis) {
   padding: 8px 10px;
   font-size: 13px;
   color: var(--color-text-muted);
+}
+
+.match {
+  background: #fef08a;
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 1px;
 }
 </style>
