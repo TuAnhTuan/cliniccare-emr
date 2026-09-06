@@ -5,5 +5,9 @@ export function useApi() {
     return $fetch<T>(path, { baseURL: config.public.apiBase, params })
   }
 
-  return { get }
+  function post<T>(path: string, body: object) {
+    return $fetch<T>(path, { baseURL: config.public.apiBase, method: 'POST', body })
+  }
+
+  return { get, post }
 }

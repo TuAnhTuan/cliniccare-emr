@@ -8,6 +8,8 @@
         </NuxtLink>
         <nav class="app-nav">
           <NuxtLink to="/consultations" class="app-nav__link">Consultations</NuxtLink>
+          <NuxtLink to="/consultations/new" class="app-nav__link">New Consultation</NuxtLink>
+          <NuxtLink to="/consultations/search" class="app-nav__link">Search</NuxtLink>
         </nav>
       </div>
     </header>
