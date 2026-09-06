@@ -50,7 +50,12 @@ function initials(name: string) {
           <td>
             <div class="patient-cell">
               <span class="patient-avatar">{{ initials(consultation.patient.name) }}</span>
-              {{ consultation.patient.name }}
+              <span>
+                {{ consultation.patient.name }}
+                <span v-if="consultation.patient.age || consultation.patient.gender" class="patient-meta">
+                  ({{ [consultation.patient.age, consultation.patient.gender].filter(Boolean).join(', ') }})
+                </span>
+              </span>
             </div>
           </td>
           <td>
@@ -141,6 +146,12 @@ function initials(name: string) {
   font-size: 12px;
   font-weight: 700;
   flex-shrink: 0;
+}
+
+.patient-meta {
+  font-weight: 400;
+  color: var(--color-text-muted);
+  font-size: 12px;
 }
 
 .badge {

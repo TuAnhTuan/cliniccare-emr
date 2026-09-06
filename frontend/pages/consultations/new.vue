@@ -4,7 +4,18 @@ import type { ConsultationCreatePayload, Diagnosis } from '~/types'
 const { post } = useApi()
 const router = useRouter()
 
+const MAX_PATIENT_AGE_YEARS = 130
+
+const todayIso = new Date().toISOString().slice(0, 10)
+const earliestDobIso = (() => {
+  const d = new Date()
+  d.setFullYear(d.getFullYear() - MAX_PATIENT_AGE_YEARS)
+  return d.toISOString().slice(0, 10)
+})()
+
 const patientName = ref('')
+const patientDob = ref('')
+const patientGender = ref<'' | 'male' | 'female' | 'other'>('')
 const note = ref('')
 const selectedDiagnoses = ref<Diagnosis[]>([])
 const submitting = ref(false)
@@ -18,10 +29,23 @@ async function submit() {
     return
   }
 
+  if (patientDob.value) {
+    if (patientDob.value > todayIso) {
+      errorMessage.value = 'Date of birth cannot be in the future.'
+      return
+    }
+    if (patientDob.value < earliestDobIso) {
+      errorMessage.value = `Date of birth cannot be more than ${MAX_PATIENT_AGE_YEARS} years ago.`
+      return
+    }
+  }
+
   submitting.value = true
   try {
     const payload: ConsultationCreatePayload = {
       patient_name: patientName.value.trim(),
+      patient_dob: patientDob.value || null,
+      patient_gender: patientGender.value || null,
       note: note.value.trim(),
       diagnosis_codes: selectedDiagnoses.value.map((d) => d.icd10_code),
       // TODO: derive this from the authenticated practitioner once JWT login is added
@@ -49,8 +73,26 @@ async function submit() {
 
       <label class="field">
         <span class="field__label">Patient name</span>
-        <input v-model="patientName" type="text" class="input" placeholder="e.g. Tan Wei Ming" />
+        <input v-model="patientName" type="text" class="input" placeholder="e.g. Tuan Le" />
       </label>
+
+      <div class="field-row">
+        <label class="field">
+          <span class="field__label">Date of birth <span class="field__optional">(optional)</span></span>
+          <input v-model="patientDob" type="date" class="input" :min="earliestDobIso" :max="todayIso" />
+        </label>
+
+        <label class="field">
+          <span class="field__label">Gender <span class="field__optional">(optional)</span></span>
+          <select v-model="patientGender" class="input">
+            <option value="">Not specified</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+        </label>
+      </div>
+      <p class="field-hint">Only used when creating a new patient record; ignored if the patient already exists.</p>
 
       <label class="field">
         <span class="field__label">Diagnosis codes</span>
@@ -123,6 +165,26 @@ async function submit() {
   font-size: 13px;
   font-weight: 600;
   margin-bottom: 6px;
+}
+
+.field__optional {
+  font-weight: 400;
+  color: var(--color-text-muted);
+}
+
+.field-row {
+  display: flex;
+  gap: 12px;
+}
+
+.field-row .field {
+  flex: 1;
+}
+
+.field-hint {
+  margin: -10px 0 18px;
+  font-size: 12px;
+  color: var(--color-text-muted);
 }
 
 .input {
