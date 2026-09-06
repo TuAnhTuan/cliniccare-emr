@@ -1,3 +1,5 @@
 <template>
-  <div>ClinicCare Mini EMR</div>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
 </template>
