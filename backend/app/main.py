@@ -3,13 +3,14 @@ from sqlalchemy import text
 
 from .database import engine
 from .exceptions import register_error_handlers
-from .routers import diagnosis
+from .routers import consultation, diagnosis
 
 app = FastAPI(title="ClinicCare Mini EMR API")
 
 register_error_handlers(app)
 
 app.include_router(diagnosis.router)
+app.include_router(consultation.router)
 
 
 @app.get("/health")
